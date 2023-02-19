@@ -1,0 +1,73 @@
+{
+  "configVersion": 1,
+  "timestamp": 1676841968945,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/index.html",
+        "/main.a2f225b45e26199e.js",
+        "/manifest.webmanifest",
+        "/polyfills.e4fb240b225878ed.js",
+        "/runtime.2fd17ddf736f78f0.js",
+        "/styles.4c33b6a0bc577778.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-256x256.png",
+        "/assets/icons/icon-32x32.png",
+        "/assets/icons/icon-64x64.png",
+        "/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/icons/icon-128x128.png": "c17efca9485e4439449cd45f202a23ac2ea597c4",
+    "/assets/icons/icon-256x256.png": "c3382fdc3434dff8b62300de021ff8aae3f949be",
+    "/assets/icons/icon-32x32.png": "929c4a134dbddfc0b57ca5cc05ef0136fe9aa88e",
+    "/assets/icons/icon-64x64.png": "4bd666def5acfdeddfd7583cf2fba8cb75af2c5e",
+    "/assets/icons/icon-96x96.png": "f6c7e7dcdc8011a6ee88e42d83e298ec3b301d32",
+    "/index.html": "d751036fb00e3013533e33640f7a28800b040212",
+    "/main.a2f225b45e26199e.js": "4359371f07bd5bf159dcf474e8d8e4b9c3da07b4",
+    "/manifest.webmanifest": "bf39d156a72f4043750c109a7402962653477255",
+    "/polyfills.e4fb240b225878ed.js": "9cadcdd7474cd9976a30fe0894165f5167c41bcc",
+    "/runtime.2fd17ddf736f78f0.js": "a6ea0752d47c636538daf5b40754cff563aebdde",
+    "/styles.4c33b6a0bc577778.css": "41ef214dc4cc20cde262e714c1a7a32f43880a06"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

@@ -1,0 +1,42 @@
+<div class="settings">
+    <div class="settings-title">Tiles</div>
+    <label class="setting">
+        <span class="label">Tile size X</span>
+        <app-input-text [value]="settings.tileSizeX" [type]="'integer'" (onIntegerChanged)="updateSettings(settings.setTileSizeX($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Tile size Y</span>
+        <app-input-text [value]="settings.tileSizeY" [type]="'integer'" (onIntegerChanged)="updateSettings(settings.setTileSizeY($event))"></app-input-text>
+    </label>
+</div>
+<div class="settings">
+    <div class="settings-title">Common</div>
+    <label class="setting">
+        <span class="label">Font Name</span>
+        <app-input-text [value]="settings.fontName" [type]="'string'" (onStringChanged)="updateSettings(settings.setFontName($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Font Size</span>
+        <app-input-text [value]="settings.fontSize" [type]="'integer'" (onIntegerChanged)="updateSettings(settings.setFontSize($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Line Height</span>
+        <app-input-text [value]="settings.lineHeight" [type]="'float'" (onFloatChanged)="updateSettings(settings.setLineHeight($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Letter Spacing</span>
+        <app-input-text [value]="settings.letterSpacing" [type]="'float'" (onFloatChanged)="updateSettings(settings.setLetterSpacing($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Baseline Height</span>
+        <app-input-text [value]="settings.baseLine" [type]="'float'" (onFloatChanged)="updateSettings(settings.setBaseLine($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Space Size</span>
+        <app-input-text [value]="settings.spaceSize" [type]="'float'" (onFloatChanged)="updateSettings(settings.setSpaceSize($event))"></app-input-text>
+    </label>
+</div>
+<label class="settings">
+    <div class="settings-title">Character Set</div>
+    <textarea [ngModel]="settings.characters" rows="8" (ngModelChange)="updateSettings(settings.setCharacters($event))"></textarea>
+</label>

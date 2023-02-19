@@ -1,0 +1,13 @@
+<div class="root-container bevel-in">
+    <div class="drop-container"
+        [class.hide]="imageSource.length > 0"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (click)="openFile()"
+    >Drag and drop, or click to upload image</div>
+    
+    <div class="image-container">
+        <img [src]="imageSource" alt="">
+    </div>
+</div>

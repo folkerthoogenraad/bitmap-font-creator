@@ -1,0 +1,5 @@
+<input 
+    type="text" 
+    [class.invalid]="!valid"
+    [(ngModel)]="internalValue" 
+    (ngModelChange)="changed()">

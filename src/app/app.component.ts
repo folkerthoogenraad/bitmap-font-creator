@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { toFntFile } from 'src/ts/FntWriter';
 import { FontImage, FontModel, FontSettings } from 'src/ts/FontModel';
 import { initPWA, PWA } from 'src/ts/pwa/PWA';
+import { toOTFFile } from 'src/ts/OTFWriter';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit{
     this.model = this.model.setSettings(settings);
     this.save();
   }
-  async download(){
+  async downloadFnt(){
     let data = toFntFile(this.model);
 
     let fileName = this.model.getFntFileName();
@@ -37,6 +38,42 @@ export class AppComponent implements OnInit{
     if(!w.showOpenFilePicker){
       let element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+      element.setAttribute('download', fileName);
+    
+      element.style.display = 'none';
+      document.body.appendChild(element);
+    
+      element.click();
+    
+      document.body.removeChild(element);
+    }
+    else{
+      const options = {
+        multiple: false,
+        suggestedName: fileName
+      };
+      let fileHandle = await w.showSaveFilePicker(options);
+
+      const writableStream = await fileHandle.createWritable();
+
+      await writableStream.write(data);
+      await writableStream.close();
+    }
+  }
+  
+  async downloadOtf(){
+    let data = toOTFFile(this.model);
+
+    let fileName = this.model.getOtfFileName();
+
+    let w = window as any;
+
+    if(!w.showOpenFilePicker){
+      let element = document.createElement('a');
+
+      const href = window.URL.createObjectURL(new Blob([data]));
+
+      element.setAttribute('href', href);
       element.setAttribute('download', fileName);
     
       element.style.display = 'none';
@@ -81,13 +118,20 @@ export class AppComponent implements OnInit{
       info.characters ?? settings.characters));
   }
 
+  hasImage(){
+    if(this.model.imageData === undefined) return false;
+    if(this.model.imageData.image === undefined) return false;
+
+    return true;
+  }
+
   private saveInternal(){
     localStorage.setItem("data", JSON.stringify(this.model.settings));
   }
 
   @HostListener('document:keydown.control.s', ['$event']) 
   onKeydownHandler(event: KeyboardEvent) {
-    this.download();
+    this.downloadFnt();
     event.preventDefault();
   }    
   @HostListener('window:resize', ['$event']) 

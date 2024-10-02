@@ -42,6 +42,11 @@
             .right { grid-area: right; }
             .bottom { grid-area: bottom; }
 
+            .left{
+                min-width:128px;
+                min-height:128px;
+            }
+
             .bottom{
                 display: flex;
                 justify-content: flex-end;

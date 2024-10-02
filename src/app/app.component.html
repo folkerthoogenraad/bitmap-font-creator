@@ -5,16 +5,22 @@
     </div>
     <div class="settings">
       <div class="top">
-        This program uses a tilemap containing (usually hand drawn) sprites of letters into an .fnt bitmap font file. This file can be used and loaded in several programs for making games, Godot, Monogame, etc. Add your image, insert the right data and download the reuslt.
+        <p>
+          This program allows the user to create a tilemap spritesheet of letters and turn them into a bitmap font. Either export the .fnt file or .otf (Open Font Type) file.
+        </p>
+        
+        <p>Add your image, insert the right data and download the result.</p>
       </div>
-      <div class="left">
-        <app-upload-image [image]="model.imageData"(onImageUpload)="loadImage($event)"></app-upload-image>
+      <div class="left bevel-in">
+        <app-upload-image *ngIf="!hasImage()" [image]="model.imageData"(onImageUpload)="loadImage($event)"></app-upload-image>
+        <app-font-image-display *ngIf="hasImage()" [settings]="model.settings" [image]="model.imageData"></app-font-image-display>
       </div>
       <div class="right">
         <app-font-settings [settings]="model.settings" (onSettingsChange)="loadSettings($event)"></app-font-settings>
       </div>
       <div class="bottom">
-        <button (click)="download()">Save Fnt</button>
+        <button (click)="downloadFnt()">Save Fnt</button>
+        <button (click)="downloadOtf()">Save OTF</button>
       </div>
   
     </div>

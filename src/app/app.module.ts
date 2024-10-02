@@ -7,6 +7,7 @@ import { FontSettingsComponent } from './font-settings/font-settings.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FontImageDisplayComponent } from './font-image-display/font-image-display.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     UploadImageComponent,
     FontSettingsComponent,
     InputTextComponent,
+    FontImageDisplayComponent,
   ],
   imports: [
     BrowserModule,

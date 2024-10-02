@@ -28,8 +28,6 @@ export class UploadImageComponent implements OnChanges, OnInit {
     PWA.onLaunchFilesLoaded = (files) => {
       this.processLaunchFiles(files);
 
-      console.log("Launch files processed");
-
       this.ref.detectChanges();
     }
   }
@@ -89,11 +87,7 @@ export class UploadImageComponent implements OnChanges, OnInit {
     let source = await readFileAsync(file);
     let image = await loadImageAsync(source);
 
-    this.imageSource = image.src;
     this.onImageUpload.emit(new FontImage(file.name, image));
-    
-    console.log("Updating files!");
-    this.ref.detectChanges();
   }
 }
 

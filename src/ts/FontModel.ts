@@ -5,6 +5,8 @@ export class FontModel {
     readonly imageData: FontImage;
     readonly settings: FontSettings;
 
+    cachedGlyphs?: Glyph[];
+
     constructor(image?: FontImage, settings?: FontSettings){
         this.imageData = image ?? new FontImage();
         this.settings = settings ?? new FontSettings("My font", 10, 10, 7, 10, 1, 7, 5, "ABCD\nEFGH");
@@ -13,14 +15,17 @@ export class FontModel {
     setImage(image: FontImage){
         return new FontModel(image, this.settings);
     }
+
     setSettings(settings: FontSettings){
         return new FontModel(this.imageData, settings);
     }
 
     createGlyphs(): Glyph[]{
-        if(this.imageData.image === undefined) throw new Error("No image is defined");
+        if(this.cachedGlyphs !== undefined) return this.cachedGlyphs;
 
-        let image = this.imageData.image;
+        let imageData = this.imageData.getImageData();
+
+        if(imageData === undefined) throw new Error("No image is defined");
 
         let list: Glyph[] = [];
 
@@ -42,24 +47,32 @@ export class FontModel {
 
             xOffset += this.settings.tileSizeX;
 
-            if(xOffset > image.width){
+            if(xOffset > imageData.width){
                 throw new Error("Width out of image bounds!");
             }
-            if(yOffset > image.height){
+            if(yOffset > imageData.height){
                 throw new Error("Height out of image bounds!");
             }
         }
 
-        let imageData = this.getImageData(image);
-
         list.forEach(glyph => {
-            glyph.trim(imageData);
+            glyph.trim(imageData!);
         });
+
+        this.cachedGlyphs = list;
 
         return list;
     }
 
     getFntFileName(): string{
+        return this.getImageFileName() + ".fnt";
+    }
+
+    getOtfFileName(): string{
+        return this.settings.fontName + ".otf";
+    }
+
+    getImageFileName(): string{
         if(this.imageData.fileName === undefined) return "";
 
         let fileName = this.imageData.fileName;
@@ -70,11 +83,7 @@ export class FontModel {
             fileName = fileName.substring(0, seperatorIndex);
         }
 
-        return fileName + ".fnt";
-    }
-
-    private getImageData(image: HTMLImageElement): FontImageData{
-        return new FontImageData(image);
+        return fileName;
     }
 }
 
@@ -82,9 +91,21 @@ export class FontImage{
     readonly fileName?: string;
     readonly image?: HTMLImageElement;
 
+    cachedFontImageData?: FontImageData;
+
     constructor(fileName?: string, image?: HTMLImageElement){
         this.fileName = fileName;
         this.image = image;
+    }
+
+    getImageData(): FontImageData|undefined {
+        if(this.image === undefined) return undefined;
+
+        if(this.cachedFontImageData !== undefined) return this.cachedFontImageData;
+
+        this.cachedFontImageData = new FontImageData(this.image);
+
+        return this.cachedFontImageData;
     }
 }
 

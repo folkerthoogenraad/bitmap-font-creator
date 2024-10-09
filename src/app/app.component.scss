@@ -20,37 +20,40 @@
             padding: 10px;
 
             display: grid;
+            grid-template-columns: 1fr 1fr;
             grid-template-areas: 
-                "top top"
-                "left right" 
-                "bottom bottom";
+                "introduction introduction"
+                "font-preview font-settings" 
+                "save-buttons save-buttons";
 
             @media only screen and (max-width: 600px) {
                 grid-template-areas: 
-                    "top top"
-                    "left left"
-                    "right right" 
-                    "bottom bottom";
+                    "introduction introduction"
+                    "font-preview font-preview"
+                    "font-settings font-settings" 
+                    "save-buttons save-buttons";
             }
 
             gap: 12px;
             justify-content: stretch;
             align-items: stretch;
 
-            .top { grid-area: top; }
-            .left { grid-area: left; }
-            .right { grid-area: right; }
-            .bottom { grid-area: bottom; }
+            .introduction { grid-area: introduction; }
+            .font-preview { grid-area: font-preview; }
+            .font-settings { grid-area: font-settings; }
+            .save-buttons { grid-area: save-buttons; }
 
-            .left{
-                min-width:128px;
-                min-height:128px;
+            .font-preview{
+                min-width: 200px;
+                min-height: 200px;
             }
 
-            .bottom{
+            .save-buttons {
                 display: flex;
                 justify-content: flex-end;
                 align-items: flex-end;
+
+                gap: 4px;
             }
         }
     }

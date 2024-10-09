@@ -8,6 +8,7 @@ import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FontImageDisplayComponent } from './font-image-display/font-image-display.component';
+import { InputCheckboxComponent } from './input-checkbox/input-checkbox.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FontImageDisplayComponent } from './font-image-display/font-image-displ
     FontSettingsComponent,
     InputTextComponent,
     FontImageDisplayComponent,
+    InputCheckboxComponent,
   ],
   imports: [
     BrowserModule,

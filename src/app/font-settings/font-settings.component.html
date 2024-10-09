@@ -20,10 +20,6 @@
         <app-input-text [value]="settings.fontSize" [type]="'integer'" (onIntegerChanged)="updateSettings(settings.setFontSize($event))"></app-input-text>
     </label>
     <label class="setting">
-        <span class="label">Line Height</span>
-        <app-input-text [value]="settings.lineHeight" [type]="'float'" (onFloatChanged)="updateSettings(settings.setLineHeight($event))"></app-input-text>
-    </label>
-    <label class="setting">
         <span class="label">Letter Spacing</span>
         <app-input-text [value]="settings.letterSpacing" [type]="'float'" (onFloatChanged)="updateSettings(settings.setLetterSpacing($event))"></app-input-text>
     </label>
@@ -40,3 +36,35 @@
     <div class="settings-title">Character Set</div>
     <textarea [ngModel]="settings.characters" rows="8" (ngModelChange)="updateSettings(settings.setCharacters($event))"></textarea>
 </label>
+
+<div class="settings">
+    <div class="settings-title">FNT File</div>
+    <label class="setting">
+        <span class="label">Line Height</span>
+        <app-input-text [value]="settings.lineHeight" [type]="'float'" (onFloatChanged)="updateSettings(settings.setLineHeight($event))"></app-input-text>
+    </label>
+</div>
+<div class="settings">
+    <div class="settings-title">OTF File</div>
+    <!-- <div class="settings-help">
+        Open Font Type (OTF) files can be a little tricky with bitmap fonts. Fonts are made up of vectors, like svgs, and not pixels. To convert, we convert the the individual pixels to vector images. There are some caviates however. 
+        The font vector images have a grid size too and the vector coordinates have to fall right on top of the grid. If your fonts pixel size doesn't divide by the font grid size, you will probably get some strange anti aliassing/blurring.
+        Some platforms and applications like (or even force) the font grid as a power of two. To circumvent this, play around with the font size and the font grid size.
+    </div> -->
+    <!-- <label class="setting">
+        <span class="label">Preserve color</span>
+        <app-input-checkbox [checked]="otfSettings.preserveColor" (checkedChange)="updateOtfSettings(otfSettings.setPreserveColor($event))"></app-input-checkbox>
+    </label> -->
+    <label class="setting">
+        <span class="label">Font grid size (unitsPerEm)</span>
+        <app-input-text [value]="otfSettings.unitsPerEm" [type]="'integer'" (onIntegerChanged)="updateOtfSettings(otfSettings.setUnitsPerEm($event))"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Power of two</span>
+        <app-input-text [value]="isPowerOfTwo(otfSettings.unitsPerEm) ? 'Yes' : 'No'" [editable]="false" [warning]="!isPowerOfTwo(otfSettings.unitsPerEm)" [type]="'text'"></app-input-text>
+    </label>
+    <label class="setting">
+        <span class="label">Size of pixel</span>
+        <app-input-text [value]="otfSettings.getPixelScale(settings.fontSize)" [editable]="false" [warning]="!isWholeNumber(otfSettings.getPixelScale(settings.fontSize))" [type]="'text'"></app-input-text>
+    </label>
+</div>

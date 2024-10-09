@@ -1,0 +1,31 @@
+.checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+
+    width: 14px;
+    height: 14px;
+
+    background: var(--background-input);
+    
+    outline: none;
+
+    border: 2px solid white;
+
+    border-top-color: var(--bevel-dark-color);
+    border-left-color: var(--bevel-dark-color);
+    border-right-color: var(--bevel-light-color);
+    border-bottom-color: var(--bevel-light-color);
+
+    .checkmark {
+        visibility: hidden;
+    }
+
+    &.checked {
+        .checkmark{
+            visibility: visible;
+        }
+    }
+}

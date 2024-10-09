@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { toFntFile } from 'src/ts/FntWriter';
-import { FontImage, FontModel, FontSettings } from 'src/ts/FontModel';
+import { FontImage, FontModel, FontOtfSettings, FontSettings } from 'src/ts/FontModel';
 import { initPWA, PWA } from 'src/ts/pwa/PWA';
 import { toOTFFile } from 'src/ts/OTFWriter';
 
@@ -26,6 +26,10 @@ export class AppComponent implements OnInit{
   }
   loadSettings(settings: FontSettings){
     this.model = this.model.setSettings(settings);
+    this.save();
+  }
+  loadOtfSettings(otfSettings: FontOtfSettings){
+    this.model = this.model.setOtfSettings(otfSettings);
     this.save();
   }
   async downloadFnt(){

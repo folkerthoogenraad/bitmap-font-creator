@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FontImage, FontSettings } from 'src/ts/FontModel';
+import { Glyph } from 'src/ts/Glyphs';
 
 @Component({
   selector: 'app-font-image-display',
@@ -32,6 +33,8 @@ export class FontImageDisplayComponent implements OnChanges {
   @Input() settings?: FontSettings;
 
   requestedAnimationFrame: number = -1;
+
+  overlayCharacters = false;
   
   ngOnChanges(){
     this.redraw();
@@ -54,6 +57,12 @@ export class FontImageDisplayComponent implements OnChanges {
   // =========================================== //
   // System messages
   // =========================================== //
+  setOverlayCharacters(value: boolean){
+    this.overlayCharacters = value;
+
+    this.redraw();
+  }
+
   redraw(){
     if(this.requestedAnimationFrame > 0) return;
 
@@ -116,49 +125,94 @@ export class FontImageDisplayComponent implements OnChanges {
     // Draw the normal grid
     this.context.strokeStyle = "rgba(255, 255, 255, 0.3)";
     
-    this.context.beginPath();
+    // Horizontal grid
+    if(gridWidth > 0){
+      this.context.beginPath();
 
-    for(let x = 0; x < imageWidth; x += gridWidth){
-      this.context.moveTo(x, 0);
-      this.context.lineTo(x, imageHeight);
+      for(let x = 0; x < imageWidth; x += gridWidth){
+        this.context.moveTo(x, 0);
+        this.context.lineTo(x, imageHeight);
+      }
+  
+      this.context.stroke();
     }
 
-    for(let y = 0; y < imageHeight; y += gridHeight){
-      this.context.moveTo(0, y);
-      this.context.lineTo(imageWidth, y);
+    // Vertical grid
+    if(gridHeight > 0){
+      this.context.beginPath();
+
+      for(let y = 0; y < imageHeight; y += gridHeight){
+        this.context.moveTo(0, y);
+        this.context.lineTo(imageWidth, y);
+      }
+  
+      this.context.stroke();
     }
 
-    this.context.stroke();
-    
     // Draw the baseline
     this.context.strokeStyle = "rgba(0, 255, 255, 0.3)";
     
-    this.context.beginPath();
+    if(gridHeight > 0){
+      this.context.beginPath();
 
-    for(let y = this.settings.baseLine; y < imageHeight; y += gridHeight){
-      this.context.moveTo(0, y);
-      this.context.lineTo(imageWidth, y);
+      for(let y = this.settings.baseLine; y < imageHeight; y += gridHeight){
+        this.context.moveTo(0, y);
+        this.context.lineTo(imageWidth, y);
+      }
+  
+      this.context.stroke();
     }
 
-    this.context.stroke();
-
     // Draw the selected characters grid
-    this.context.beginPath();
-    this.context.strokeStyle = "blue";
-
     for(let l = 0; l < lines.length; l++){
       let line = lines[l];
 
       for(let c = 0; c < line.length; c++){
         let x = c * gridWidth;
         let y = l * gridHeight;
+
+        this.context.save();
+
+        this.context.translate(x, y);
+
+        this.context.beginPath();
+        this.context.strokeStyle = "blue";
         
-        this.context.moveTo(x, y + this.settings.baseLine);
-        this.context.lineTo(x + gridWidth, y + this.settings.baseLine);
+        this.context.moveTo(0, this.settings.baseLine);
+        this.context.lineTo(gridWidth, this.settings.baseLine);
+
+        this.context.stroke();
+        
+
+        this.context.beginPath();
+        this.context.strokeStyle = "red";
+        
+        this.context.moveTo(0, this.settings.baseLine);
+        this.context.lineTo(0, this.settings.baseLine - this.settings.fontSize);
+        
+        this.context.stroke();
+
+        if(this.overlayCharacters){
+          this.context.textAlign = "left";
+          this.context.font = this.settings.fontSize + "px Tahoma";
+          this.context.fillStyle = "rgba(0, 0, 0, 0.4)";
+          this.context.fillText(line[c], 0, this.settings.baseLine);
+        }
+
+
+        this.context.restore();
       }
     }
+  }
 
-    this.context.stroke();
+  toGridX(viewX: number){
+    let tileSizeX = this.settings?.tileSizeX ?? 1;
+    return Math.floor(viewX / tileSizeX);
+  }
+
+  toGridY(viewY: number){
+    let tileSizeY = this.settings?.tileSizeY ?? 1;
+    return Math.floor(viewY / tileSizeY);
   }
 
   // =========================================== //
@@ -222,13 +276,21 @@ export class FontImageDisplayComponent implements OnChanges {
   // Event listeners
   // =========================================== //
   onMouseEvent(event: MouseEvent){
-    this.mouseDeltaX = event.offsetX - this.mouseX;
-    this.mouseDeltaY = event.offsetY - this.mouseY;
+    if(this.canvas == undefined) return;
 
-    this.mouseX = event.offsetX;
-    this.mouseY = event.offsetY;
+    let rect = this.canvas.getBoundingClientRect();
+
+    let mouseX = event.clientX - rect.left;
+    let mouseY = event.clientY - rect.top;
+
+    this.mouseDeltaX = mouseX - this.mouseX;
+    this.mouseDeltaY = mouseY - this.mouseY;
+
+    this.mouseX = mouseX;
+    this.mouseY = mouseY;
   }
 
+  @HostListener('window:mouseup', ['$event'])
   onMouseUp(event: MouseEvent){
     this.onMouseEvent(event);
 
@@ -237,6 +299,7 @@ export class FontImageDisplayComponent implements OnChanges {
     if(event.button === 2) this.mouseButtonRight = false;
   }
   
+  @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent){
     this.onMouseEvent(event);
 

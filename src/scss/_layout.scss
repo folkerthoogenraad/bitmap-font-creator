@@ -1,0 +1,46 @@
+.settings{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 4px;
+    column-gap: 10px;
+
+    border: 2px groove var(--groove-color);
+    padding: 6px;
+
+    position: relative;
+
+    padding-top: 16px;
+
+    .settings-title{
+        position: absolute;
+
+        left: 10px;
+    
+        transform: translateY(-50%);
+
+        background: var(--background);
+    }
+    .label {
+        min-height: 21px;
+    }
+
+    .setting{
+        display: contents;
+    }
+    
+    .settings-help{
+        grid-column: span 2;
+        margin-bottom: 10px;
+    }
+
+    h4, textarea {
+        grid-column: span 2;
+    }
+    textarea {
+        width:100%;
+    }
+
+    &:not(:last-child){
+        margin-bottom: 10px;
+    }
+}

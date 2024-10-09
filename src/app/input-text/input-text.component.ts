@@ -10,6 +10,8 @@ const TYPE_STRING = "string";
   styleUrls: ['./input-text.component.scss']
 })
 export class InputTextComponent implements OnChanges {
+  @Input() warning: boolean = false;
+  @Input() editable: boolean = true;
   @Input() value: string|number|undefined;
   @Input() type: string = TYPE_STRING;
 
@@ -56,10 +58,10 @@ export class InputTextComponent implements OnChanges {
 
   getPattern(): RegExp{
     if(this.type === TYPE_FLOAT){
-      return /^[0-9]+(\.[0-9]*)?$/;
+      return /^-?[0-9]+(\.[0-9]*)?$/;
     }
     else if(this.type === TYPE_INTEGER){
-      return /^[0-9]*$/;
+      return /^-?[0-9]+$/;
     }
     else {
       return /[\s\S]*/;

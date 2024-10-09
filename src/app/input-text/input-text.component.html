@@ -1,5 +1,7 @@
 <input 
     type="text" 
     [class.invalid]="!valid"
+    [class.warning]="warning"
+    [disabled]="!editable"
     [(ngModel)]="internalValue" 
     (ngModelChange)="changed()">

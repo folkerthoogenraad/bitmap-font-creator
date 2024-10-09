@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "./scss/layout";
+
 *{
     box-sizing: border-box;
 }
@@ -11,6 +13,7 @@ html, body{
     user-select: none;
 
     --color: #000;
+    --background-input: #fff8ff;
     --groove-color: #ddd;
     --bevel-light-color: #f2f2f2;
     --bevel-dark-color: #565656;
@@ -60,7 +63,7 @@ input {
 input, textarea{
     @include bevel-in;
 
-    background: #fff8ff;
+    background: var(--background-input);
     
     outline: none;
 
@@ -70,6 +73,14 @@ input, textarea{
     
     &.invalid{
         border-color: red;
+    }
+
+    &:disabled {
+        background: var(--background);
+    }
+
+    &.warning {
+        color: rgb(134, 22, 22);
     }
 }
 

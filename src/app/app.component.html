@@ -4,21 +4,25 @@
       Bitmap font creator
     </div>
     <div class="settings">
-      <div class="top">
+      <div class="introduction">
         <p>
           This program allows the user to create a tilemap spritesheet of letters and turn them into a bitmap font. Either export the .fnt file or .otf (Open Font Type) file.
         </p>
         
         <p>Add your image, insert the right data and download the result.</p>
       </div>
-      <div class="left bevel-in">
+      <div class="font-preview">
         <app-upload-image *ngIf="!hasImage()" [image]="model.imageData"(onImageUpload)="loadImage($event)"></app-upload-image>
         <app-font-image-display *ngIf="hasImage()" [settings]="model.settings" [image]="model.imageData"></app-font-image-display>
       </div>
-      <div class="right">
-        <app-font-settings [settings]="model.settings" (onSettingsChange)="loadSettings($event)"></app-font-settings>
+      <div class="font-settings">
+        <app-font-settings 
+          [settings]="model.settings" 
+          [otfSettings]="model.otfSettings"
+          (onSettingsChange)="loadSettings($event)"
+          (onOtfSettingsChange)="loadOtfSettings($event)"></app-font-settings>
       </div>
-      <div class="bottom">
+      <div class="save-buttons">
         <button (click)="downloadFnt()">Save Fnt</button>
         <button (click)="downloadOtf()">Save OTF</button>
       </div>

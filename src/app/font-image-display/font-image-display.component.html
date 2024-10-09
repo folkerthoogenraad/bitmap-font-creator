@@ -1,10 +1,16 @@
-<div class="canvas-container">
-    <canvas 
-        #canvas
-        tabindex="0"
-        (mousedown)="onMouseDown($event)"
-        (mouseup)="onMouseUp($event)"
-        (mousemove)="onMouseMove($event)"
-        (wheel)="onMouseWheel($event)"></canvas>
-    
+<div class="root-container">
+    <div class="canvas-container bevel-in">
+        <canvas 
+            #canvas
+            tabindex="0"
+            (mousedown)="onMouseDown($event)"
+            (wheel)="onMouseWheel($event)"></canvas>
+    </div>
+    <div class="settings">
+        <div class="settings-title">Preview settings</div>
+        <label class="setting">
+            <span class="label">Overlay characters</span>
+            <app-input-checkbox [checked]="overlayCharacters" (checkedChange)="setOverlayCharacters($event)"></app-input-checkbox>
+        </label>
+    </div>
 </div>

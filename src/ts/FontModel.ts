@@ -4,20 +4,26 @@ import { Glyph } from "./Glyphs";
 export class FontModel {
     readonly imageData: FontImage;
     readonly settings: FontSettings;
+    readonly otfSettings: FontOtfSettings;
 
     cachedGlyphs?: Glyph[];
 
-    constructor(image?: FontImage, settings?: FontSettings){
+    constructor(image?: FontImage, settings?: FontSettings, otfSettings?: FontOtfSettings){
         this.imageData = image ?? new FontImage();
         this.settings = settings ?? new FontSettings("My font", 10, 10, 7, 10, 1, 7, 5, "ABCD\nEFGH");
+        this.otfSettings = otfSettings ?? new FontOtfSettings(1024, false);
     }
 
     setImage(image: FontImage){
-        return new FontModel(image, this.settings);
+        return new FontModel(image, this.settings, this.otfSettings);
+    }
+
+    setOtfSettings(otfSettings: FontOtfSettings){
+        return new FontModel(this.imageData, this.settings, otfSettings);
     }
 
     setSettings(settings: FontSettings){
-        return new FontModel(this.imageData, settings);
+        return new FontModel(this.imageData, settings, this.otfSettings);
     }
 
     createGlyphs(): Glyph[]{
@@ -106,6 +112,34 @@ export class FontImage{
         this.cachedFontImageData = new FontImageData(this.image);
 
         return this.cachedFontImageData;
+    }
+}
+
+export class FontOtfSettings {
+    readonly unitsPerEm: number;
+    readonly preserveColor: boolean;
+
+    constructor(unitsPerEm: number, preserveColor: boolean){
+        this.unitsPerEm = unitsPerEm;
+        this.preserveColor = preserveColor;
+    }
+
+    setUnitsPerEm(unitsPerEm: number){
+        return new FontOtfSettings(
+            unitsPerEm,
+            this.preserveColor
+        );
+    }
+
+    setPreserveColor(color: boolean){
+        return new FontOtfSettings(
+            this.unitsPerEm,
+            color
+        );
+    }
+
+    getPixelScale(fontSize: number) {
+        return this.unitsPerEm / fontSize;
     }
 }
 

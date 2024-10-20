@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pixel-font-generator": {
+    "bitmap-font-generator": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pixel-font-generator",
+            "outputPath": "dist/bitmap-font-generator",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pixel-font-generator:build:production"
+              "browserTarget": "bitmap-font-generator:build:production"
             },
             "development": {
-              "browserTarget": "pixel-font-generator:build:development"
+              "browserTarget": "bitmap-font-generator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pixel-font-generator:build"
+            "browserTarget": "bitmap-font-generator:build"
           }
         },
         "test": {

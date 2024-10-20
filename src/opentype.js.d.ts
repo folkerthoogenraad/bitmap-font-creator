@@ -16,6 +16,8 @@ declare module 'opentype/dist/opentype.min.js' {
         glyphs: GlyphSet;
         encoding: Encoding;
         substitution: Substitution;
+        layers: LayerManager;
+        palettes: PaletteManager;
 
         readonly defaultRenderOptions: RenderOptions;
 
@@ -369,4 +371,25 @@ declare module 'opentype/dist/opentype.min.js' {
     ): Font;
 
     export function parse(buffer: any): Font;
+
+    
+    /******************************************
+     * Layers and palletes
+     ******************************************/
+    export class LayerManager {
+        ensureCOLR(): Font;
+
+        // TODO do the any stuff
+        get(glyphIndex: number): any[];
+        add(glyphIndex: number, layers: any, position?: number): void;
+        remove(glyphIndex: number, start: number, end?: number): void;
+
+        setPaletteIndex(glyphIndex: number, layerIndex: number, palleteIndex: number): void;
+    }
+
+    export class PaletteManager {
+        extend(num: number): void;
+
+        setColor(index: number, color: string, paletteIndex: number): void;
+    }
 }

@@ -10,7 +10,7 @@ import { toOTFFile } from 'src/ts/OTFWriter';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'pixel-font-generator';
+  title = 'Bitmap Font Generator';
   model = new FontModel();
   isFullscreen = true;
 

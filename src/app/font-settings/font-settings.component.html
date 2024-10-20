@@ -51,10 +51,10 @@
         The font vector images have a grid size too and the vector coordinates have to fall right on top of the grid. If your fonts pixel size doesn't divide by the font grid size, you will probably get some strange anti aliassing/blurring.
         Some platforms and applications like (or even force) the font grid as a power of two. To circumvent this, play around with the font size and the font grid size.
     </div> -->
-    <!-- <label class="setting">
+    <label class="setting">
         <span class="label">Preserve color</span>
         <app-input-checkbox [checked]="otfSettings.preserveColor" (checkedChange)="updateOtfSettings(otfSettings.setPreserveColor($event))"></app-input-checkbox>
-    </label> -->
+    </label>
     <label class="setting">
         <span class="label">Font grid size (unitsPerEm)</span>
         <app-input-text [value]="otfSettings.unitsPerEm" [type]="'integer'" (onIntegerChanged)="updateOtfSettings(otfSettings.setUnitsPerEm($event))"></app-input-text>

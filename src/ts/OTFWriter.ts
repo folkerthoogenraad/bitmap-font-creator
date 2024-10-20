@@ -1,7 +1,8 @@
-import * as opentype from 'opentype.js'
+import * as opentype from "opentype/dist/opentype.min.js";
 import { FontModel, FontSettings } from "./FontModel";
 import { FontImageData } from './FontImageData';
 import { Glyph } from './Glyphs';
+
 
 
 function glyphToPath(settings: FontSettings, imageData: FontImageData, glyph: Glyph, pixelSize: number){
